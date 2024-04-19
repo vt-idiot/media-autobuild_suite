@@ -2012,9 +2012,7 @@ if { { [[ $mpv != n ]] && ! mpv_disabled libplacebo; } ||
      { [[ $ffmpeg != no ]] && enabled libplacebo; } } &&
     do_vcs "$SOURCE_REPO_SPIRV_CROSS"; then
     do_uninstall include/spirv_cross "${_check[@]}" spirv-cross-c-shared.pc libspirv-cross-c-shared.a
-    do_patch "https://raw.githubusercontent.com/m-ab-s/mabs-patches/master/SPIRV-Cross/0001-add-a-basic-Meson-build-system-for-use-as-a-subproje.patch" am
-    sed -i 's/0.13.0/0.48.0/' meson.build
-    do_mesoninstall
+    do_cmakeinstall -GNinja -DSPIRV_CROSS_STATIC=ON -DSPIRV_CROSS_SHARED=ON -DSPIRV_CROSS_CLI=ON -DSPIRV_CROSS_EXCEPTIONS_TO_ASSERTIONS=ON -DSPIRV_CROSS_ENABLE_TESTS=OFF
     do_checkIfExist
 fi
 
